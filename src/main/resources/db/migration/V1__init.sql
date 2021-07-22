@@ -1,8 +1,8 @@
-create table category (id bigserial primary key, title varchar(255), created_at timestamp default current_timestamp, updated_at timestamp default current_timestamp );
-insert into category(title) values ('Food');
+create table categories (id bigserial primary key, title varchar(255), created_at timestamp default current_timestamp, updated_at timestamp default current_timestamp );
+insert into categories(title) values ('Food');
 
 create table products (id bigserial primary key, title varchar(255), price int, category_id bigint references categories (id), created_at timestamp default current_timestamp, updated_at timestamp default current_timestamp );
-insert into products (title, price) values
+insert into products (title, price, category_id) values
 ('Bread',39, 1),
 ('Apple',13, 1),
 ('Pear',17, 1),
@@ -22,5 +22,5 @@ insert into products (title, price) values
 ('Pasta',72, 1),
 ('Rice',72, 1),
 ('Milk',69, 1),
-('Cheese', 400, 1),
+('Cheese', 400, 1);
 

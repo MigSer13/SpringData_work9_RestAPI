@@ -1,4 +1,4 @@
-package ru.geekbrains.market.dt;
+package ru.geekbrains.market.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,4 +15,7 @@ public class CategoryDto {
         this.id = category.getId();
         this.title = category.getTitle();
     }
+
+
+
 }

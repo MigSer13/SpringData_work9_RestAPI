@@ -1,6 +1,7 @@
 package ru.geekbrains.market.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.market.model.Product;
@@ -11,6 +12,11 @@ import ru.geekbrains.market.services.ProductService;
 @RequestMapping("/api/v1/products")
 public class ProductControllerRestAPI {
     private ProductService productService;
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 
     //Get
     @GetMapping
