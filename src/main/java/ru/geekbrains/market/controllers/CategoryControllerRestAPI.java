@@ -24,7 +24,10 @@ public class CategoryControllerRestAPI {
     }
 
     //Get
-
+    @GetMapping
+    public List<CategoryDto> findAll(){
+        return categoryService.findAll().stream().map(category -> new CategoryDto(category)).collect(Collectors.toList());
+    }
 
     @GetMapping("/{id}")
     public CategoryDto findById(@PathVariable Long id){
