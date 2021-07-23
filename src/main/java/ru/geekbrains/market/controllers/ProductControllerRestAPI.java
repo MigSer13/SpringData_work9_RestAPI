@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.market.dto.ProductDto;
 import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.services.ProductService;
+import ru.geekbrains.market.utils.ResourceNotFoundExeption;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +28,8 @@ public class ProductControllerRestAPI {
 
     @GetMapping("/{id}")
     public ProductDto findByID(@PathVariable Long id){
-        return new ProductDto(productService.findByID(id));
+        Product p = productService.findByID(id).
+        return new ProductDto(productService.findByID(id).orElseThrow(()-> new ResourceNotFoundExeption("Product not found, id: " + id )));
     }
 
     //Delete

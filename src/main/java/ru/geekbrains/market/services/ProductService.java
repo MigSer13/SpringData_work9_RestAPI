@@ -8,6 +8,7 @@ import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.repositories.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,8 +28,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findByID(Long id){
-        return productRepository.findById(id).get();
+    public Optional<Product> findByID(Long id){
+        return productRepository.findById(id);
     }
 
     public void deletedByID(Long id){
