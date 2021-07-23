@@ -28,8 +28,8 @@ public class ProductControllerRestAPI {
 
     @GetMapping("/{id}")
     public ProductDto findByID(@PathVariable Long id){
-        Product p = productService.findByID(id).
-        return new ProductDto(productService.findByID(id).orElseThrow(()-> new ResourceNotFoundExeption("Product not found, id: " + id )));
+        Product p = productService.findByID(id).orElseThrow(()-> new ResourceNotFoundExeption("Product not found, id: " + id ));
+        return new ProductDto(p);
     }
 
     //Delete
