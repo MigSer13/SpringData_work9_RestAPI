@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.market.dto.CategoryDto;
-import ru.geekbrains.market.dto.ProductDto;
 import ru.geekbrains.market.model.Category;
-import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.services.CategoryService;
-import ru.geekbrains.market.utils.ResourceNotFoundExeption;
+import ru.geekbrains.market.exeptions.ResourceNotFoundExeption;
 
 import java.util.List;
 import java.util.stream.Collectors;

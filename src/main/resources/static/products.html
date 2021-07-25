@@ -24,13 +24,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in products">
+        <tr ng-repeat="p in productsPage.content">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
             <td>
                 <button class="btn btn-primary" ng-click="infoOfProduct(p.id)">details</button>
                 <button class="btn btn-primary" ng-click="deleteOfProduct(p.id)">delete</button>
+                <button class="btn btn-success" ng-click="addToCart(p.id)">add to Cart</button>
             </td>
         </tr>
         </tbody>
@@ -40,6 +41,44 @@
     <button class="btn btn-primary" ng-click="previusPage()">Previus Page</button>
     <button class="btn btn-primary" ng-click="nextPage()">Next Page</button>
     <h3>page: {{numberOfPage}}</h3>
+
+    <p></p>
+    <h1>Корзина</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td><b>Название</b></td>
+            <td><b>Количество</b></td>
+            <td><b>Цена 1шт</b></td>
+            <td><b>Цена позиции</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="oip in cart.items">
+            <td>{{oip.productTItle}}</td>
+            <td>{{oip.quantity}}</td>
+            <td>{{oip.pricePerProduct}}</td>
+            <td>{{oip.positionPrice}}</td>
+            <td>
+                <button class="btn btn-danger" ng-click="deleteFromCart(oip.productTItle)">Удалить</button>
+            </td>
+            <td>
+                <button class="btn btn-info" ng-click="deletePiece(oip.productTItle)">-</button>
+            </td>
+            <td>
+                <button class="btn btn-info" ng-click="addPiece(oip.productTItle)">+</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p></p>
+    <h3>Сумма (итого): {{cartPrice}}</h3>
+
+    <p></p>
+    <button class="btn btn-warning" ng-click="clearCart()">Очистить корзину</button>
 </div>
 </body>
 </html>

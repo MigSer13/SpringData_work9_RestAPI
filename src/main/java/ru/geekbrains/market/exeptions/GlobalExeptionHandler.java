@@ -1,4 +1,4 @@
-package ru.geekbrains.market.utils;
+package ru.geekbrains.market.exeptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExeptionHandler {
     @ExceptionHandler
     public ResponseEntity<?> catchResourceNotFoundExeption(ResourceNotFoundExeption e){
-        return new ResponseEntity<>(new MarkerError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new MarkerError(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

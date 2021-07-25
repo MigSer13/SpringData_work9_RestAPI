@@ -1,5 +1,5 @@
 angular.module('appMarket', []).controller('angularController', function($scope, $http){
-    const basePath = 'http://localhost:8180/market/api/v1';
+    const basePath = 'http://localhost:8181/market/api/v1';
 
     $scope.numberOfPage = 1;
     $scope.listProducts = function(){
@@ -8,19 +8,20 @@ angular.module('appMarket', []).controller('angularController', function($scope,
             metod: 'GET',
             params: {}
         }).then(function(response){
-            $scope.products = response.data;
-            $scope.pageNumbers = $scope.generatePagesNumbers(1, response.totalPages);
-            console.log(response.data);
+//            $scope.pageNumbers = $scope.generatePagesNumbers(1, response.totalPages);
+            $scope.totalPages = response.data.totalPages;
+            $scope.productsPage = response.data;
+            console.log(response);
             });
     };
 
-        $scope.generatePagesNumbers = function (startPage, endPage) {
-            let arr = [];
-            for (let i = startPage; i < endPage + 1; i++) {
-                arr.push(i);
-            }
-            return arr;
-        }
+//        $scope.generatePagesNumbers = function (startPage, endPage) {
+//            let arr = [];
+//            for (let i = startPage; i < endPage + 1; i++) {
+//                arr.push(i);
+//            }
+//            return arr;
+//        }
 
     $scope.infoOfProduct = function(idProduct){
          $http({
@@ -48,12 +49,12 @@ angular.module('appMarket', []).controller('angularController', function($scope,
             metod: 'GET',
             params: {}
             }).then(function(response){
-                $scope.products = response.data;
+                $scope.productsPage = response.data;
                 });
     };
 
     $scope.previusPage = function(){
-        if($scope.numberOfPage <= 0) {
+        if($scope.numberOfPage <= 1) {
             $scope.numberOfPage = 1;
         }else{
             $scope.numberOfPage -= 1;
@@ -62,13 +63,69 @@ angular.module('appMarket', []).controller('angularController', function($scope,
     }
 
    $scope.nextPage = function(){
-            if($scope.numberOfPage <= 0) {
-                $scope.numberOfPage = 1;
-            }else{
-                $scope.numberOfPage += 1;
+         if($scope.numberOfPage = $scope.totalPages) {
+              $scope.numberOfPage = $scope.totalPages;
+         }else{
+              $scope.numberOfPage += 1;
+         }
+         $scope.showPageOfProducts($scope.numberOfPage);
+   }
+
+   $scope.showCart = function(){
+        $http({
+            url: basePath + "/cart",
+            metod: 'GET'
+        }).then(function(response){
+            $scope.cart = response.data;
+            $scope.cartPrice = response.data.price;
+            console.log(response);
+        });
+   }
+
+      $scope.addToCart = function(productId){
+           $http({
+               url: basePath + "/cart/add/" + productId,
+               metod: 'GET'
+           }).then(function(response){
+               $scope.showCart();
+           });
+      }
+
+      $scope.clearCart = function(){
+                 $http({
+                     url: basePath + "/cart/clear",
+                     metod: 'GET'
+                 }).then(function(response){
+                     $scope.showCart();
+                 });
             }
-            $scope.showPageOfProducts($scope.numberOfPage);
-        }
+
+      $scope.deleteFromCart = function(productTItle){
+            $http({
+            url: basePath + "/cart/delete/" + productTItle,
+            metod: 'GET'
+            }).then(function(response){
+                $scope.showCart();
+               });
+              }
+        $scope.deletePiece = function(productTItle){
+            $http({
+            url: basePath + "/cart/deletePiece/" + productTItle,
+            metod: 'GET'
+            }).then(function(response){
+                $scope.showCart();
+               });
+              }
+        $scope.addPiece = function(productTItle){
+                $http({
+                url: basePath + "/cart/addPiece/" + productTItle,
+                metod: 'GET'
+                }).then(function(response){
+                    $scope.showCart();
+                   });
+                  }
+
 
     $scope.listProducts();
+    $scope.showCart();
 });

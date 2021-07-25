@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -22,7 +23,7 @@ public class Product {
     @Column(name="title")
     private String title;
     @Column(name="price")
-    private int price;
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -35,7 +36,7 @@ public class Product {
     @Column(name = "updated_at")
     public LocalDate updatedAt;
 
-    public Product(String title, int price) {
+    public Product(String title, BigDecimal price) {
         this.title = title;
         this.price = price;
     }
@@ -44,7 +45,7 @@ public class Product {
         return title;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

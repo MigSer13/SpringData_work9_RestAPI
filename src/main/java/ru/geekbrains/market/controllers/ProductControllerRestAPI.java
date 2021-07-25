@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.market.dto.ProductDto;
 import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.services.ProductService;
-import ru.geekbrains.market.utils.ResourceNotFoundExeption;
+import ru.geekbrains.market.exeptions.ResourceNotFoundExeption;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +25,10 @@ public class ProductControllerRestAPI {
     public Page<ProductDto> showAllProducts(){
         return productService.findPage(0, 10).map(ProductDto::new);
     }
+    @GetMapping("/page/{id}")
+    public Page<ProductDto> showPageProducts(@PathVariable int id){
+        return productService.findPage( id-1, 10).map(ProductDto::new);
+    }
 
     @GetMapping("/{id}")
     public ProductDto findByID(@PathVariable Long id){
@@ -33,7 +37,7 @@ public class ProductControllerRestAPI {
     }
 
     //Delete
-    @DeleteMapping("/{id}")
+    @GetMapping("/delete/{id}")
      public void deletedByID(@PathVariable Long id){
         productService.deletedByID(id);
     }
