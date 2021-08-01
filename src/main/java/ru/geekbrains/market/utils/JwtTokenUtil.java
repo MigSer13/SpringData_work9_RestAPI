@@ -1,0 +1,60 @@
+package ru.geekbrains.market.utils;
+
+import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
+import lombok.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Component
+public class JwtTokenUtil {
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.lifetime}")
+    private Integer jwtLifetime;
+
+    public String generateToken(UserDetails userDetails){
+        Map<String, Object> claims = new HashMap<>();
+        List<String> rolesList = userDetails.getAuthorities().stream()
+                .map(GrantedAythority::getAuthority)
+                .collect(Collectors.toList());
+        claims.put("roles", rolesList);
+
+        Date issuedDate = new Date();
+        Date expairedDate = new Date(issuedDate.getTime() + jwtLifetime);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(issuedDate)
+                .setExpairedDate(expairedDate)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
+    public String getUsernameFromToken(String token){
+        return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    private <T> getClaimFromToken(String token, Function<Claims, T> claimsResolver){
+        Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+    public List<String> getRoles(String token){
+        return getClaimFromToken(token, (Function<Claims, List<String>>) claims -> claims.get("roles"));
+    }
+
+}
