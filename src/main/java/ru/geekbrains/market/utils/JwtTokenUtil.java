@@ -1,8 +1,12 @@
 package ru.geekbrains.market.utils;
 
 import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Jwts;
-import lombok.Value;
+import io.jsonwebtoken.Claims;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,7 +28,7 @@ public class JwtTokenUtil {
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = userDetails.getAuthorities().stream()
-                .map(GrantedAythority::getAuthority)
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         claims.put("roles", rolesList);
 
@@ -33,7 +38,7 @@ public class JwtTokenUtil {
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
-                .setExpairedDate(expairedDate)
+                .setExpiration(expairedDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
@@ -42,14 +47,14 @@ public class JwtTokenUtil {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    private <T> getClaimFromToken(String token, Function<Claims, T> claimsResolver){
+    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver){
         Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey()
+                .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
     }
