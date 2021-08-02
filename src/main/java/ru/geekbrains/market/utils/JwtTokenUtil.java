@@ -1,10 +1,8 @@
 package ru.geekbrains.market.utils;
 
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
-
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,7 +57,7 @@ public class JwtTokenUtil {
                 .getBody();
     }
     public List<String> getRoles(String token){
-        return getClaimFromToken(token, (Function<Claims, List<String>>) claims -> claims.get("roles"));
+        return getClaimFromToken(token, (Function<Claims, List<String>>) claims -> claims.get("roles", List.class));
     }
 
 }

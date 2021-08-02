@@ -1,4 +1,4 @@
-angular.module('appMarket', []).controller('angularController', function($scope, $http){
+angular.module('appMarket', ['ngStorage']).controller('angularController', function($scope, $http, $LocalStorage){
     const basePath = 'http://localhost:8181/market/api/v1';
 
     $scope.numberOfPage = 1;
@@ -125,6 +125,46 @@ angular.module('appMarket', []).controller('angularController', function($scope,
                    });
                   }
 
+        $scope.tryToAuth = function(){
+            $http.post(basePath + '/auth', $scope.user)
+                .then(function successCallback(response){
+                    if(response.data.token){
+                        $http.default.headers.common.Authorization = 'Bearer ' + response.data.token;
+                        $LocalStorage.marketUser = {$username: $scope.user.username, token: response.data.token};
+
+                        $scope.user.username = null;
+                        $scope.user.password = null;
+                    }
+                }, function errorCallback(response){
+                });
+        };
+
+        $scope.clearUser() = function(){
+            delete $LocalStorage.marketUser;
+            $http.default.headers.common.Authorization = '';
+        };
+
+        $scope.tryToLogout = function(){
+            $scope.clearUser();
+            if($scope.user.username){
+                $scope.user.username = null;
+            }
+            if($scope.user.password){
+                $scope.user.password = null;
+            }
+        };
+
+        $scope.isUserLoggedIn = function(){
+            if($LocalStorage.marketUser){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if($LocalStorage.marketUser){
+            $http.default.headers.common.Authorization = 'Bearer ' + response.data.token;
+        }
 
     $scope.listProducts();
     $scope.showCart();
