@@ -125,6 +125,29 @@ angular.module('appMarket', ['ngStorage']).controller('angularController', funct
                    });
                   }
 
+        $scope.loadOrders = function(){
+            if(!isUserLoggedIn){
+                return;
+            }
+            $http({
+                url: basePath + "/orders",
+                metod: "GET"
+            }).then (function(response){
+                $scope.orders = response.data;
+            })
+        }
+
+        $scope.createOrders = function(){
+            $http({
+                url: basePath + "/orders",
+                metod: "POST"
+            }).then (function(response){
+                alert('Заказ создан');
+                $scope.showCart();
+                $scope.loadOrders();
+            })
+        }
+
         $scope.tryToAuth = function(){
             $http.post(basePath + '/auth', $scope.user)
                 .then(function successCallback(response){
@@ -134,6 +157,8 @@ angular.module('appMarket', ['ngStorage']).controller('angularController', funct
 
                         $scope.user.username = null;
                         $scope.user.password = null;
+
+                        $scope.loadOrders();
                     }
                 }, function errorCallback(response){
                 });
@@ -164,6 +189,7 @@ angular.module('appMarket', ['ngStorage']).controller('angularController', funct
 
         if($LocalStorage.marketUser){
             $http.default.headers.common.Authorization = 'Bearer ' + response.data.token;
+            $scope.loadOrders();
         }
 
     $scope.listProducts();
