@@ -1,5 +1,6 @@
 package ru.geekbrains.market.controllers;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import ru.geekbrains.market.services.ProductService;
 import ru.geekbrains.market.utils.Cart;
 
 @RestController
+@Data
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/cart")
 public class CartController {

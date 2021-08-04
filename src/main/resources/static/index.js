@@ -57,7 +57,7 @@ angular.module('appMarket', ['ngStorage']).controller('angularController', funct
         if($scope.numberOfPage <= 1) {
             $scope.numberOfPage = 1;
         }else{
-            $scope.numberOfPage -= 1;
+            $scope.numberOfPage -= 1;clearCart
         }
         $scope.showPageOfProducts($scope.numberOfPage);
     }
@@ -96,7 +96,7 @@ angular.module('appMarket', ['ngStorage']).controller('angularController', funct
                      url: basePath + "/cart/clear",
                      metod: 'GET'
                  }).then(function(response){
-                     $scope.showCart();
+                     $scope.cart = null;
                  });
             }
 
@@ -194,4 +194,5 @@ angular.module('appMarket', ['ngStorage']).controller('angularController', funct
 
     $scope.listProducts();
     $scope.showCart();
+    $scope.loadOrders();
 });

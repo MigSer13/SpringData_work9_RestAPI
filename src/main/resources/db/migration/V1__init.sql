@@ -45,6 +45,25 @@ CREATE table users_roles (
  role_id               bigint not null references roles (id)
  );
 
+ CREATE table orders (
+   id                    bigserial primary key,
+   price                 numeric(8, 2) not null,
+   created_at            timestamp default current_timestamp,
+   updated_at            timestamp default current_timestamp
+ );
+
+ CREATE table order_items (
+    id                    bigserial primary key,
+    position_price        numeric(8, 2) not null,
+    price_per_product     numeric(8, 2) not null,
+    product_id            bigint references products (id),
+    order_id              bigint references orders (id),
+    quantity              int,
+    created_at            timestamp default current_timestamp,
+    updated_at            timestamp default current_timestamp
+  );
+
+
 insert into users (username, password, email)
 values
 ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com'),
