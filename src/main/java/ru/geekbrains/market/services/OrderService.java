@@ -32,7 +32,7 @@ public class OrderService {
             orderItem.setOrder(order);
             orderItem.setQuantity(oi.getQuantity());
             Product product = productService.findByID(oi.getProductId()).orElseThrow(()-> new ResourceNotFoundExeption("Product not found"));
-            orderItem.setProductId(product.getId());
+            orderItem.setProduct(product);
             orderItem.setPositionPrice(product.getPrice().multiply(BigDecimal.valueOf(oi.getQuantity())));
             orderItem.setPricePerProduct(product.getPrice());
             order.getOrderItemList().add(orderItem);

@@ -38,7 +38,5 @@ public class Order {
     @Column(name = "updated_at")
     public LocalDate updatedAt;
 
-
-
 }
 

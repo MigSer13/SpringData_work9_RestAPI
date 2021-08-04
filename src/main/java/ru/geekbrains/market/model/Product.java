@@ -20,8 +20,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
+
     @Column(name="title")
     private String title;
+
     @Column(name="price")
     private BigDecimal price;
 
@@ -32,6 +34,7 @@ public class Product {
     @CreationTimestamp
     @Column(name = "created_at")
     public LocalDate createdAt;
+
     @UpdateTimestamp
     @Column(name = "updated_at")
     public LocalDate updatedAt;
@@ -39,21 +42,5 @@ public class Product {
     public Product(String title, BigDecimal price) {
         this.title = title;
         this.price = price;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 }
