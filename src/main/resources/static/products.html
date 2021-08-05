@@ -81,7 +81,8 @@
 
     <span ng-show="cart == null || cart.item.length == 0 ">Ваша корзина пуста</span>
 
-    <div ng-show="cart.item.length > 0 ">
+<!--    ng-show="cart.item.length > 0 "-->
+    <div >
         <table class="table">
             <thead>
             <tr>
@@ -132,7 +133,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="o in orders">
+        <tr ng-repeat="o in orders.">
             <td>{{o.id}}</td>
             <td>{{o.price}}</td>
         </tr>

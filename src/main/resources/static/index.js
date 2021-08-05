@@ -102,6 +102,7 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
                      metod: 'GET'
                  }).then(function(response){
                      $scope.cart = null;
+                     $scope.cartPrice = 0;
                  });
             };
 
@@ -150,7 +151,7 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
             });
         };
 
-        $scope.createOrders = function(){
+        $scope.createOrder = function(){
             $http({
                 url: basePath + "/orders",
                 metod: "POST"
