@@ -53,6 +53,8 @@
             <td><b>ID</b></td>
             <td><b>Title</b></td>
             <td><b>Cost</b></td>
+            <td></td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -131,8 +133,8 @@
         </thead>
         <tbody>
         <tr ng-repeat="o in orders">
-            <td>{o.id}</td>
-            <td>{o.price}</td>
+            <td>{{o.id}}</td>
+            <td>{{o.price}}</td>
         </tr>
         </tbody>
     </table>

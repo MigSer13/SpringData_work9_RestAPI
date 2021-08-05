@@ -25,6 +25,7 @@ public class OrderController {
 
     @GetMapping
     public List<OrderDto> getAllOrders(){
-        return orderService.findAll().stream().map(OrderDto::new).collect(Collectors.toList());
+        List<OrderDto> orderDtoList = orderService.findAll().stream().map(OrderDto::new).collect(Collectors.toList());
+        return orderDtoList;
     }
 }

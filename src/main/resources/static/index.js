@@ -1,5 +1,5 @@
 
-angular.module('appMarket', ["ngStorage"]).controller('indexController', function($scope, $http, $localStorage){
+angular.module('appMarket', ['ngStorage']).controller('indexController', function($scope, $http, $localStorage){
     const basePath = 'http://localhost:8181/market/api/v1';
 
     $scope.numberOfPage = 1;
@@ -130,8 +130,16 @@ angular.module('appMarket', ["ngStorage"]).controller('indexController', functio
                    });
                   };
 
+        $scope.isUserLoggedIn = function(){
+            if($localStorage.cur_user){
+                return true;
+            } else {
+                return false;
+            }
+        };
+
         $scope.loadOrders = function(){
-            if(!isUserLoggedIn){
+            if(!$scope.isUserLoggedIn){
                 return;
             };
             $http({
@@ -157,8 +165,8 @@ angular.module('appMarket', ["ngStorage"]).controller('indexController', functio
             $http.post(basePath + '/auth', $scope.user)
                 .then(function successCallback(response){
                     if(response.data.token){
-                        $http.default.headers.common.Authorization = 'Bearer ' + response.data.token;
-                        $localStorage.User = {username: $scope.user.username, token: response.data.token};
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                        $localStorage.cur_user = {username: $scope.user.username, token: response.data.token};
 
                         $scope.user.username = null;
                         $scope.user.password = null;
@@ -170,8 +178,8 @@ angular.module('appMarket', ["ngStorage"]).controller('indexController', functio
         };
 
         $scope.clearUser = function(){
-            delete $localStorage.User;
-            $http.default.headers.common.Authorization = '';
+            delete $localStorage.cur_user;
+            $http.defaults.headers.common.Authorization = '';
         };
 
         $scope.tryToLogout = function(){
@@ -184,16 +192,8 @@ angular.module('appMarket', ["ngStorage"]).controller('indexController', functio
             }
         };
 
-        $scope.isUserLoggedIn = function(){
-            if($localStorage.User){
-                return true;
-            } else {
-                return false;
-            }
-        };
-
-        if($localStorage.User){
-            $http.default.headers.common.Authorization = 'Bearer ' + response.data.token;
+        if($localStorage.cur_user){
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
             $scope.loadOrders();
         }
 
