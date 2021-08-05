@@ -27,6 +27,10 @@ public class Order {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> orderItemList;
 
+//    @ManyToOne
+//    @Column(name = "user_id")
+//    private User user;
+
     @Column(name = "price")
     private BigDecimal price;
 

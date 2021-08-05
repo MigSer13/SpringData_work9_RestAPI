@@ -23,11 +23,14 @@ public class ProductControllerRestAPI {
     //Get
     @GetMapping
     public Page<ProductDto> showAllProducts(){
-        return productService.findPage(0, 10).map(ProductDto::new);
+        Page<ProductDto> productDtoPage = productService.findPage(0, 10).map(ProductDto::new);
+        return productDtoPage;
     }
+
     @GetMapping("/page/{id}")
     public Page<ProductDto> showPageProducts(@PathVariable int id){
-        return productService.findPage( id-1, 10).map(ProductDto::new);
+        Page<ProductDto> productDtoPage = productService.findPage( id-1, 10).map(ProductDto::new);
+        return productDtoPage;
     }
 
     @GetMapping("/{id}")
