@@ -62,7 +62,7 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
         if($scope.numberOfPage <= 1) {
             $scope.numberOfPage = 1;
         }else{
-            $scope.numberOfPage -= 1;clearCart
+            $scope.numberOfPage -= 1;
         };
         $scope.showPageOfProducts($scope.numberOfPage);
     };
@@ -193,12 +193,12 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
             }
         };
 
-        if($localStorage.cur_user){
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
-            $scope.loadOrders();
-        }
+//        if($localStorage.cur_user){
+//            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
+//            $scope.loadOrders();
+//        }
 
     $scope.showPageOfProducts($scope.numberOfPage);
     $scope.showCart();
-    $scope.loadOrders();
+   // $scope.loadOrders();
 });
