@@ -172,7 +172,7 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
                         $scope.user.username = null;
                         $scope.user.password = null;
 
-                        $scope.loadOrders();
+                        //$scope.loadOrders();
                     }
                 }, function errorCallback(response){
                 });
@@ -185,11 +185,13 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
 
         $scope.tryToLogout = function(){
             $scope.clearUser();
-            if($scope.user.username){
-                $scope.user.username = null;
-            }
-            if($scope.user.password){
-                $scope.user.password = null;
+            if($scope.user){
+                if($scope.user.username){
+                    $scope.user.username = null;
+                }
+                if($scope.user.password){
+                    $scope.user.password = null;
+                }
             }
         };
 

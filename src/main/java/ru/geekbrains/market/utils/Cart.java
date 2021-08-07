@@ -57,11 +57,12 @@ public class Cart {
     }
 
     public List<OrderItemDto> deleteItemsByTitle(String productTitle) {
-        for(OrderItemDto oid : items) {
-            if (oid.getProductTItle().equals(productTitle)) {
-                items.remove(oid);
-            }
-        }
+//        for(OrderItemDto oid : items) {
+//            if (oid.getProductTItle().equals(productTitle)) {
+//                items.remove(oid);
+//            }
+//        }
+        items.removeIf(oid -> oid.getProductTItle().equals(productTitle));
         recalculate();
         return items;
     }

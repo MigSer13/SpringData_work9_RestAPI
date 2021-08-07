@@ -98,18 +98,18 @@
             </thead>
             <tbody>
             <tr ng-repeat="oip in cart.items">
-                <td>{{oip.productTItle}}</td>
+                <td>{{oip.productTitle}}</td>
                 <td>{{oip.quantity}}</td>
                 <td>{{oip.pricePerProduct}}</td>
                 <td>{{oip.positionPrice}}</td>
                 <td>
-                    <button class="btn btn-danger" ng-click="deleteFromCart(oip.productTItle)">Удалить</button>
+                    <button class="btn btn-danger" ng-click="deleteFromCart(oip.productTitle)">Удалить</button>
                 </td>
                 <td>
-                    <button class="btn btn-info" ng-click="deletePiece(oip.productTItle)">-</button>
+                    <button class="btn btn-info" ng-click="deletePiece(oip.productTitle)">-</button>
                 </td>
                 <td>
-                    <button class="btn btn-info" ng-click="addPiece(oip.productTItle)">+</button>
+                    <button class="btn btn-info" ng-click="addPiece(oip.productTitle)">+</button>
                 </td>
             </tr>
             </tbody>
@@ -118,13 +118,13 @@
         <h3>Сумма (итого): {{cartPrice}}</h3>
 
         <p></p>
-        <button ng-show="!isUserLoggedIn" class="btn btn-primary" ng-click="createOrder()">Оформить заказ</button>
+        <button ng-show="isUserLoggedIn()" class="btn btn-primary" ng-click="createOrder()">Оформить заказ</button>
         <button class="btn btn-warning" ng-click="clearCart()">Очистить корзину</button>
     </div>
     <p></p>
-    <button ng-show="isUserLoggedIn" class="btn btn-secondary">Авторизация</button>
+    <button ng-show="!isUserLoggedIn()" class="btn btn-secondary">Авторизация</button>
 
-    <div ng-show="!isUserLoggedIn">
+    <div ng-show="isUserLoggedIn()">
         <p></p>
         <h3>Ваши заказы</h3>
         <table class="table">

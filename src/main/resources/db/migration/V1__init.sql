@@ -55,10 +55,10 @@ CREATE table users_roles (
 
  CREATE table order_items (
     id                    bigserial primary key,
-    position_price        numeric(8, 2) not null,
-    price_per_product     numeric(8, 2) not null,
     product_id            bigint references products (id),
     order_id              bigint references orders (id),
+    position_price        numeric(8, 2) not null,
+    price_per_product     numeric(8, 2) not null,
     quantity              int,
     created_at            timestamp default current_timestamp,
     updated_at            timestamp default current_timestamp
