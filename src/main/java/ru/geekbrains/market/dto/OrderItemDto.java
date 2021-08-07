@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Data
 public class OrderItemDto {
     private Long productId;
-    private String productTItle;
+    private String productTitle;
     private BigDecimal pricePerProduct;
     private BigDecimal positionPrice;
     private int quantity;
@@ -21,7 +21,7 @@ public class OrderItemDto {
         this.pricePerProduct = product.getPrice();
         this.positionPrice = product.getPrice();
         this.productId = product.getId();
-        this.productTItle = product.getTitle();
+        this.productTitle = product.getTitle();
     }
 
     public BigDecimal getPrice() {

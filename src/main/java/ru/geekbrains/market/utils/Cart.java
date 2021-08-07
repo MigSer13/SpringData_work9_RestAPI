@@ -62,14 +62,14 @@ public class Cart {
 //                items.remove(oid);
 //            }
 //        }
-        items.removeIf(oid -> oid.getProductTItle().equals(productTitle));
+        items.removeIf(oid -> oid.getProductTitle().equals(productTitle));
         recalculate();
         return items;
     }
 
     public boolean deletePieceFromCart(String productTitle){
         for(OrderItemDto oid : items){
-            if (oid.getProductTItle().equals(productTitle) & oid.getQuantity() > 1) {
+            if (oid.getProductTitle().equals(productTitle) & oid.getQuantity() > 1) {
                 oid.decrementQuantity(1);
                 recalculate();
                 return true;
@@ -80,7 +80,7 @@ public class Cart {
 
     public boolean addPieceFromCart(String productTitle){
         for(OrderItemDto oid : items){
-            if (oid.getProductTItle().equals(productTitle)) {
+            if (oid.getProductTitle().equals(productTitle)) {
                 oid.incrementQuantity(1);
                 recalculate();
                 return true;
