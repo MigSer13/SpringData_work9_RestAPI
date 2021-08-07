@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name="order_items")
+@Table(name="orders")
 @Data
 @NoArgsConstructor
 @Component
@@ -27,9 +27,9 @@ public class Order {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> orderItemList;
 
-//    @ManyToOne
-//    @Column(name = "user_id")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "price")
     private BigDecimal price;

@@ -9,8 +9,7 @@ import ru.geekbrains.market.model.OrderItem;
 import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.repositories.OrderRepository;
 import ru.geekbrains.market.utils.Cart;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
