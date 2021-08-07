@@ -25,12 +25,15 @@ public class OrderController {
     @PostMapping
     public void createOrder(Principal principal) {
         User user = userService.findByUsername(principal.getName()).get();
-        orderService.createOrder();
+        orderService.createOrder(user);
+        //orderService.findByUser(user);
     }
 
     @GetMapping
-    public List<OrderDto> getAllOrders(){
-        List<OrderDto> orderDtoList = orderService.findAll().stream().map(OrderDto::new).collect(Collectors.toList());
+    public List<OrderDto> getAllOrders(Principal principal){
+        User user = userService.findByUsername(principal.getName()).get();
+//        List<OrderDto> orderDtoList = orderService.findAll().stream().map(OrderDto::new).collect(Collectors.toList());
+        List<OrderDto> orderDtoList = orderService.findByUser(user).stream().map(OrderDto::new).collect(Collectors.toList());
         return orderDtoList;
     }
 }

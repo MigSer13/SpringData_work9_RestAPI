@@ -7,6 +7,7 @@ import ru.geekbrains.market.exeptions.ResourceNotFoundExeption;
 import ru.geekbrains.market.model.Order;
 import ru.geekbrains.market.model.OrderItem;
 import ru.geekbrains.market.model.Product;
+import ru.geekbrains.market.model.User;
 import ru.geekbrains.market.repositories.OrderRepository;
 import ru.geekbrains.market.utils.Cart;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,9 @@ public class OrderService {
     private final ProductService productService;
 
     @Transactional
-    public void createOrder(){
+    public void createOrder(User user){
         Order order = new Order();
+        order.setUser(user);
         order.setPrice(cart.getPrice());
         order.setOrderItemList(new ArrayList<>());
         for(OrderItemDto oi : cart.getItems()){
@@ -42,5 +44,9 @@ public class OrderService {
 
     public List<Order> findAll(){
         return orderRepository.findAll();
+    }
+
+    public List<Order> findByUser(User user){
+        return orderRepository.findByUser(user);
     }
 }
