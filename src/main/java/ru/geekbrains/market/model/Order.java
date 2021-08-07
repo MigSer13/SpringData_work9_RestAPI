@@ -2,6 +2,7 @@ package ru.geekbrains.market.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
@@ -9,27 +10,29 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name="products")
+@Table(name="orders")
 @Data
 @NoArgsConstructor
 @Component
-public class Product {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
-    @Column(name="title")
-    private String title;
-
-    @Column(name="price")
-    private BigDecimal price;
+    @OneToMany(mappedBy = "order")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<OrderItem> orderItemList;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "price")
+    private BigDecimal price;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -39,8 +42,5 @@ public class Product {
     @Column(name = "updated_at")
     public LocalDate updatedAt;
 
-    public Product(String title, BigDecimal price) {
-        this.title = title;
-        this.price = price;
-    }
 }
+

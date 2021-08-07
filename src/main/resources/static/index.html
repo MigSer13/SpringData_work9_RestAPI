@@ -2,27 +2,24 @@
 <html ng-app="appMarket" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Магазин</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    <meta charset="utf-8"/>
+    <title>Market</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="index.js"></script>
 </head>
 
-<body ng-controller="indexController">
+
+<body ng-controller="angularController">
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#!/" style="font-weight: bold;">Магазин</a>
+                    <a class="nav-link" href="#!/" style="font-weight: bold;">Market</a>
                 </li>
                 <li class="nav-item" ng-show="!isUserLoggedIn()">
                     <form class="align-middle" ng-submit="tryToAuth()">
@@ -53,9 +50,6 @@
             <td><b>ID</b></td>
             <td><b>Title</b></td>
             <td><b>Cost</b></td>
-            <td></td>
-            <td></td>
-            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -82,8 +76,7 @@
 
     <span ng-show="cart == null || cart.item.length == 0 ">Ваша корзина пуста</span>
 
-    <!--    ng-show="cart.item.length > 0 "-->
-    <div>
+    <div ng-show="cart.item.length > 0 ">
         <table class="table">
             <thead>
             <tr>
@@ -98,18 +91,18 @@
             </thead>
             <tbody>
             <tr ng-repeat="oip in cart.items">
-                <td>{{oip.productTitle}}</td>
+                <td>{{oip.productTItle}}</td>
                 <td>{{oip.quantity}}</td>
                 <td>{{oip.pricePerProduct}}</td>
                 <td>{{oip.positionPrice}}</td>
                 <td>
-                    <button class="btn btn-danger" ng-click="deleteFromCart(oip.productTitle)">Удалить</button>
+                    <button class="btn btn-danger" ng-click="deleteFromCart(oip.productTItle)">Удалить</button>
                 </td>
                 <td>
-                    <button class="btn btn-info" ng-click="deletePiece(oip.productTitle)">-</button>
+                    <button class="btn btn-info" ng-click="deletePiece(oip.productTItle)">-</button>
                 </td>
                 <td>
-                    <button class="btn btn-info" ng-click="addPiece(oip.productTitle)">+</button>
+                    <button class="btn btn-info" ng-click="addPiece(oip.productTItle)">+</button>
                 </td>
             </tr>
             </tbody>
@@ -118,30 +111,28 @@
         <h3>Сумма (итого): {{cartPrice}}</h3>
 
         <p></p>
-        <button ng-show="isUserLoggedIn()" class="btn btn-primary" ng-click="createOrder()">Оформить заказ</button>
+        <button ng-show="isUserLoggedIn" class="btn btn-primary" ng-click="createOrder()">Оформить заказ</button>
         <button class="btn btn-warning" ng-click="clearCart()">Очистить корзину</button>
     </div>
     <p></p>
-    <button ng-show="!isUserLoggedIn()" class="btn btn-secondary">Авторизация</button>
+    <button ng-show="!isUserLoggedIn" class="btn btn-secondary" >Авторизация</button>
 
-    <div ng-show="isUserLoggedIn()">
-        <p></p>
-        <h3>Ваши заказы</h3>
-        <table class="table">
-            <thead>
-            <tr>
-                <td><b>ID</b></td>
-                <td><b>Сумма</b></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="o in orders">
-                <td>{{o.id}}</td>
-                <td>{{o.price}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <p></p>
+    <h3>Ваши заказы</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Сумма</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="o in orders">
+            <td>{o.id}</td>
+            <td>{o.price}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

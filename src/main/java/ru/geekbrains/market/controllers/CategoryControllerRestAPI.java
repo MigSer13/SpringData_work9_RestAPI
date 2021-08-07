@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.market.dto.CategoryDto;
+import ru.geekbrains.market.model.Category;
 import ru.geekbrains.market.services.CategoryService;
+import ru.geekbrains.market.exeptions.ResourceNotFoundExeption;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,10 +26,14 @@ public class CategoryControllerRestAPI {
     }
 
     //Get
-
+    @GetMapping
+    public List<CategoryDto> findAll(){
+        return categoryService.findAll().stream().map(category -> new CategoryDto(category)).collect(Collectors.toList());
+    }
 
     @GetMapping("/{id}")
-    public CategoryDto findById(@PathVariable Long id){
-        return new CategoryDto(categoryService.findById(id));
+    public Category findById(@PathVariable Long id){
+        Category c = categoryService.findById(id).orElseThrow(()-> new ResourceNotFoundExeption("Category not found, id: " + id ));
+        return c;
     }
 }

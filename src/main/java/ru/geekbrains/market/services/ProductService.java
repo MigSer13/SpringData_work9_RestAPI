@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.market.model.Product;
 import ru.geekbrains.market.repositories.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,15 +29,15 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findByID(Long id){
-        return productRepository.findById(id).get();
+    public Optional<Product> findByID(Long id){
+        return productRepository.findById(id);
     }
 
     public void deletedByID(Long id){
         productRepository.deleteById(id);
     }
 
-    public void addNew(String title, int price){
+    public void addNew(String title, BigDecimal price){
         productRepository.findAll().add(new Product(title, price));
     }
 
