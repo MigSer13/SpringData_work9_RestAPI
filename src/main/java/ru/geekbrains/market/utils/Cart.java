@@ -1,8 +1,9 @@
 package ru.geekbrains.market.utils;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.market.dto.OrderItemDto;
-import ru.geekbrains.market.dto.ProductDto;
 import ru.geekbrains.market.model.Product;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@NoArgsConstructor
+@Data
 public class Cart {
     private List<OrderItemDto> items;
     private BigDecimal price;
@@ -19,10 +22,6 @@ public class Cart {
     public void init() {
         this.items = new ArrayList<>();
         this.price = BigDecimal.ZERO;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
     }
 
     public void clear(){
@@ -50,10 +49,6 @@ public class Cart {
     public void add(Product product){
         items.add(new OrderItemDto(product));
         recalculate();
-    }
-
-    public List<OrderItemDto> getItems() {
-        return items;
     }
 
     public List<OrderItemDto> deleteItemsByTitle(String productTitle) {

@@ -3,18 +3,19 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
     const basePath = 'http://localhost:8181/market/api/v1';
 
     $scope.numberOfPage = 1;
-    $scope.listProducts = function(){
-        $http({
-            url: basePath + '/products',
-            metod: 'GET',
-            params: {}
-        }).then(function(response){
-//            $scope.pageNumbers = $scope.generatePagesNumbers(1, response.totalPages);
-            $scope.totalPages = response.data.totalPages;
-            $scope.productsPage = response.data;
-            console.log(response);
-            });
-    };
+
+//    $scope.listProducts = function(){
+//        $http({
+//            url: basePath + '/products',
+//            metod: 'GET',
+//            params: {}
+//        }).then(function(response){
+////            $scope.pageNumbers = $scope.generatePagesNumbers(1, response.totalPages);
+//            $scope.totalPages = response.data.totalPages;
+//            $scope.productsPage = response.data;
+//            console.log(response);
+//            });
+//    };
 
 //        $scope.generatePagesNumbers = function (startPage, endPage) {
 //            let arr = [];
@@ -140,22 +141,22 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
         };
 
         $scope.loadOrders = function(){
-            if(!$scope.isUserLoggedIn){
+            if(!$scope.isUserLoggedIn()){
                 return;
-            };
+            }
             $http({
-                url: basePath + "/orders",
-                metod: "GET"
-            }).then (function(response){
+                url: basePath + '/orders',
+                method: 'GET'
+            }).then(function(response){
                 $scope.orders = response.data;
             });
         };
 
         $scope.createOrder = function(){
             $http({
-                url: basePath + "/orders",
-                metod: "POST"
-            }).then (function(response){
+                url: basePath + '/orders',
+                method: 'POST'
+            }).then(function(response){
                 alert('Заказ создан');
                 $scope.showCart();
                 $scope.loadOrders();
@@ -172,7 +173,7 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
                         $scope.user.username = null;
                         $scope.user.password = null;
 
-                        //$scope.loadOrders();
+                        $scope.loadOrders();
                     }
                 }, function errorCallback(response){
                 });
@@ -195,12 +196,12 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
             }
         };
 
-//        if($localStorage.cur_user){
-//            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
-//            $scope.loadOrders();
-//        }
+        if($localStorage.cur_user){
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
+            $scope.loadOrders();
+        }
 
     $scope.showPageOfProducts($scope.numberOfPage);
     $scope.showCart();
-   // $scope.loadOrders();
+    $scope.loadOrders();
 });

@@ -14,7 +14,7 @@ public class OrderDto {
     private BigDecimal price;
 
    public OrderDto(Order order) {
-        id = order.getId();
-        price = order.getPrice();
+        this.id = order.getId();
+        this.price = order.getPrice();
     }
 }
