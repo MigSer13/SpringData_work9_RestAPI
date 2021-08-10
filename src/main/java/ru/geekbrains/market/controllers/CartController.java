@@ -41,9 +41,9 @@ public class CartController {
     public void addPieceFromCart(@PathVariable String productTitle){
         cart.addPieceFromCart(productTitle);
     }
-    @GetMapping("/deletePiece/{productTitle}")
-    public void deletePieceFromCart(@PathVariable String productTitle){
-        cart.deletePieceFromCart(productTitle);
+    @GetMapping("/deletePiece/{productId}")
+    public void deletePieceFromCart(@PathVariable Long productId){
+        cart.deletePieceFromCart(productId);
     }
     @GetMapping("/delete/{productTitle}")
     public void deleteItemsByTitle(@PathVariable String productTitle){

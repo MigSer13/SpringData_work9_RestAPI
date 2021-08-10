@@ -1,0 +1,44 @@
+<div>
+    <h1>Корзина</h1>
+
+    <span ng-show="cart == null || cart.item.length == 0 ">Ваша корзина пуста</span>
+
+    <div ng-show="cart.item.length > 0 ">
+        <table class="table">
+            <thead>
+            <tr>
+                <td><b>Название</b></td>
+                <td><b>Количество</b></td>
+                <td><b>Цена 1шт</b></td>
+                <td><b>Цена позиции</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="oip in cart.items">
+                <td>{{oip.productTItle}}</td>
+                <td>{{oip.quantity}}</td>
+                <td>{{oip.pricePerProduct}}</td>
+                <td>{{oip.positionPrice}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteFromCart(oip.productTItle)">Удалить</button>
+                </td>
+                <td>
+                    <button class="btn btn-info" ng-click="deletePiece(oip.productId)">-</button>
+                </td>
+                <td>
+                    <button class="btn btn-info" ng-click="addPiece(oip.productTItle)">+</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p></p>
+        <h3>Сумма (итого): {{cartPrice}}</h3>
+
+        <p></p>
+        <button ng-show="isUserLoggedIn" class="btn btn-primary" ng-click="createOrder()">Оформить заказ</button>
+        <button class="btn btn-warning" ng-click="clearCart()">Очистить корзину</button>
+    </div>
+</div>

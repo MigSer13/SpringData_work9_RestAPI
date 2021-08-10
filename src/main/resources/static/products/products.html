@@ -1,0 +1,30 @@
+<div>
+    <h1>Products</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Title</b></td>
+            <td><b>Cost</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in productsPage.content">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="infoOfProduct(p.id)">details</button>
+                <button class="btn btn-primary" ng-click="deleteOfProduct(p.id)">delete</button>
+                <button class="btn btn-success" ng-click="addToCart(p.id)">add to Cart</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+    <button class="btn btn-primary" ng-click="previusPage()">Previus Page</button>
+    <button class="btn btn-primary" ng-click="nextPage()">Next Page</button>
+    <h3>page: {{numberOfPage}}</h3>
+
+</div>

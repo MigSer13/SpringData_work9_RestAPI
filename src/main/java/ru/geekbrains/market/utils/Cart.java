@@ -62,9 +62,9 @@ public class Cart {
         return items;
     }
 
-    public boolean deletePieceFromCart(String productTitle){
+    public boolean deletePieceFromCart(Long productId){
         for(OrderItemDto oid : items){
-            if (oid.getProductTitle().equals(productTitle) & oid.getQuantity() > 1) {
+            if (oid.getProductId().equals(productId) & oid.getQuantity() > 1) {
                 oid.decrementQuantity(1);
                 recalculate();
                 return true;
