@@ -1,8 +1,6 @@
-
+<div>
 
 $scope.numberOfPage = 1;
-
-
 
 //    $scope.listProducts = function(){
 //        $http({
@@ -75,13 +73,6 @@ $scope.numberOfPage = 1;
          $scope.showPageOfProducts($scope.numberOfPage);
    };
 
-         $scope.addToCart = function(productId){
-              $http({
-                  url: basePath + "/cart/add/" + productId,
-                  metod: 'GET'
-              }).then(function(response){
-                  $scope.showCart();
-              });
-         };
 
-   $scope.showPageOfProducts($scope.numberOfPage);
+
+</div>

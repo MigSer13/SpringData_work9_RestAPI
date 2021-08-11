@@ -37,11 +37,8 @@
 })();
 
 
-angular.module('appMarket', ['ngStorage']).controller('indexController', function($scope, $http, $localStorage){
+angular.module('appMarket', ['ngStorage']).controller('indexController', function($rootScope, $scope, $http, $localStorage){
     const basePath = 'http://localhost:8181/market/api/v1';
-
-
-
 
 
         $scope.isUserLoggedIn = function(){

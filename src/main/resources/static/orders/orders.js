@@ -1,3 +1,4 @@
+<div>
        $scope.loadOrders = function(){
             if(!$scope.isUserLoggedIn()){
                 return;
@@ -22,3 +23,5 @@
         };
 
     $scope.loadOrders();
+
+</div>

@@ -1,4 +1,5 @@
- $scope.showCart = function(){
+ <div>
+   $scope.showCart = function(){
         $http({
             url: basePath + "/cart",
             metod: 'GET'
@@ -9,7 +10,14 @@
         });
    };
 
-
+         $scope.addToCart = function(productId){
+              $http({
+                  url: basePath + "/cart/add/" + productId,
+                  metod: 'GET'
+              }).then(function(response){
+                  $scope.showCart();
+              });
+         };
 
       $scope.clearCart = function(){
                  $http({
@@ -47,3 +55,5 @@
                   };
 
       $scope.showCart();
+
+</div>
