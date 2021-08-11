@@ -30,28 +30,18 @@
     }
 
     function run($rootScope, $http, $localStorage) {
-        if ($localStorage.summerUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.summerUser.token;
+        if ($localStorage.cur_user) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
         }
     }
 })();
 
 
-angular.module('appMarket', ['ngStorage']).controller('indexController', function($rootScope, $scope, $http, $localStorage){
-    const basePath = 'http://localhost:8181/market/api/v1';
-
-
-        $scope.isUserLoggedIn = function(){
-            if($localStorage.cur_user){
-                return true;
-            } else {
-                return false;
-            }
-        };
-
+angular.module('appMarket').controller('indexController', function($rootScope, $scope, $http, $localStorage){
+    const basePath = 'http://localhost:8181/market';
 
         $scope.tryToAuth = function(){
-            $http.post(basePath + '/auth', $scope.user)
+            $http.post(basePath + '/api/v1/auth', $scope.user)
                 .then(function successCallback(response){
                     if(response.data.token){
                         $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
@@ -59,8 +49,6 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
 
                         $scope.user.username = null;
                         $scope.user.password = null;
-
-                        $scope.loadOrders();
                     }
                 }, function errorCallback(response){
                 });
@@ -83,9 +71,17 @@ angular.module('appMarket', ['ngStorage']).controller('indexController', functio
             }
         };
 
-        if($localStorage.cur_user){
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
-            $scope.loadOrders();
-        }
+//        if($localStorage.cur_user){
+//            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.cur_user.token;
+//            $scope.loadOrders();
+//        }
+
+        $rootScope.isUserLoggedIn = function(){
+            if($localStorage.cur_user){
+                return true;
+            } else {
+                return false;
+            }
+        };
 
 });

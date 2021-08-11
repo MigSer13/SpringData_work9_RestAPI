@@ -1,6 +1,7 @@
-<div>
+angular.module('appMarket').controller('productsController', function($scope, $http, $localStorage){
+    const basePath = 'http://localhost:8181/market';
 
-$scope.numberOfPage = 1;
+    $scope.numberOfPage = 1;
 
 //    $scope.listProducts = function(){
 //        $http({
@@ -25,7 +26,7 @@ $scope.numberOfPage = 1;
 
     $scope.showPageOfProducts = function(numberOfPage){
         $http({
-            url: basePath + '/products/page/' + numberOfPage,
+            url: basePath + '/api/v1/products/page/' + numberOfPage,
             metod: 'GET',
             params: {}
             }).then(function(response){
@@ -37,7 +38,7 @@ $scope.numberOfPage = 1;
   //
     $scope.infoOfProduct = function(idProduct){
          $http({
-            url: basePath + '/products/' + idProduct,
+            url: basePath + '/api/v1/products/' + idProduct,
             metod: 'GET',
             params: {}
             }).then(function(response){
@@ -47,7 +48,7 @@ $scope.numberOfPage = 1;
 
     $scope.deleteOfProduct = function(idProduct){
          $http({
-            url: basePath + '/products/delete/' + idProduct,
+            url: basePath + '/api/v1/products/delete/' + idProduct,
             metod: 'GET',
             params: {}
             }).then(function(response){
@@ -60,7 +61,7 @@ $scope.numberOfPage = 1;
             $scope.numberOfPage = 1;
         }else{
             $scope.numberOfPage -= 1;
-        };
+        }
         $scope.showPageOfProducts($scope.numberOfPage);
     };
 
@@ -69,10 +70,9 @@ $scope.numberOfPage = 1;
               $scope.numberOfPage = $scope.totalPages;
          }else{
               $scope.numberOfPage += 1;
-         };
+         }
          $scope.showPageOfProducts($scope.numberOfPage);
    };
 
-
-
-</div>
+    $scope.showPageOfProducts($scope.numberOfPage);
+});
